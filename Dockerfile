@@ -1,14 +1,7 @@
-#
-# Build stage
-#
-FROM maven:3.6.0-jdk-11-slim AS build
-COPY src /home/app/src
-COPY pom.xml /home/app
-
-#
-# Package stage
-#
-FROM openjdk:11-jre-slim
-COPY --from=build /home/app/target/demo-0.0.1-SNAPSHOT.jar /usr/local/lib/demo.jar
+FROM maven:3.8.3-openjdk-17 AS build
+COPY . .
+RUN mvn clean package -Pprod -DskipTests
+FROM openjdk:11-jdk-slim
+COPY --from=build /target/backendaccountant-0.0.1-SNAPSHOT.jar demo.jar
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","/usr/local/lib/demo.jar"]
+ENTRYPOINT [“java”,“-jar”,“demo.jar”]
