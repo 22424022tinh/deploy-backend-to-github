@@ -1,14 +1,7 @@
-# Sử dụng một hình ảnh cơ sở với OpenJDK 11
-FROM adoptopenjdk:11-jdk-hotspot
-
-# Thiết lập thư mục làm việc mặc định trong container
-WORKDIR /app
-
-# Sao chép tệp jar của ứng dụng vào thư mục làm việc
-COPY target/demo-0.0.1-SNAPSHOT.jar /app/demo.jar
-
-# Mở cổng mặc định của ứng dụng Spring Boot
+FROM maven:3.6.3-jdk-11 as build
+COPY . .
+RUN mvn clean package -DskipTests
+FROM openjdk:11.0.11-jre-slim
+COPY --from=build /target/ demo.jar
 EXPOSE 8080
-
-# Chạy ứng dụng bằng lệnh java
-CMD ["java", "-jar", "demo.jar"]
+ENTRYPOINT ["java","-jar","demo.jar"]
