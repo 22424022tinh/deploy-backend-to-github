@@ -1,0 +1,21 @@
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  datasource:
+    username: root
+    url: jdbc:mysql://localhost:3306/backend-vnexpress-database?createDatabaseIfNotExist=true&useUnicode=yes&characterEncoding=UTF-8
+    password: root
+    # Máy Khang
+    # username: root
+    # url: jdbc:mysql://localhost:3306/backend-vnexpress-database?createDatabaseIfNotExist=true&useUnicode=yes&characterEncoding=UTF-8
+    # password: 98vinhdz
+    # Máy Vinh
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: update
+server:
+  port: 9000
