@@ -1,4 +1,4 @@
-FROM maven:maven:3.8.6-openjdk-20 as build
+FROM maven:3.8.6-openjdk-20 as build
 COPY . .
 RUN mvn clean package -DskipTests
 FROM openjdk:20-jdk-slim
